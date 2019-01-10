@@ -23,6 +23,24 @@ server.get("/", (req, res, next) => {
 server.use("/api", userRoutes);
 server.use("/api", shoeRoutes);
 
+// error handlers
+// 404 - not found
+server.use((req, res, next) => {
+	const error = new Error("Not Found");
+	error.status = 404;
+	next(error);
+});
+
+// general error handle to return any errors found
+server.use((error, req, res, next) => {
+	{
+		res.status(error.status || 500);
+		res.json({
+			error: { message: error.message }
+		});
+	}
+});
+
 // listen on port
 server.listen(port, () => {
 	console.log(`Server is listening on port ${port}`);

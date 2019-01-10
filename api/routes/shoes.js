@@ -25,7 +25,7 @@ ShoeRouter.put("/shoes/:shoeID", (req, res, next) => {
 });
 
 // delete a shoe
-ShoeRouter.put("/shoes/:shoeID", (req, res, next) => {
+ShoeRouter.delete("/shoes/:shoeID", (req, res, next) => {
 	const id = req.params.shoeID;
 	res.status(200).json({ message: "delete shoe" });
 });

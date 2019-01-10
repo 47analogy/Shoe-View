@@ -9,13 +9,13 @@ UserRouter.get("/users", (req, res, next) => {
 
 // add a user
 UserRouter.post("/users", (req, res, next) => {
-	res.status(200).json({ message: "post users" });
+	res.status(201).json({ message: "post users" });
 });
 
 // display a single user
 UserRouter.get("/users/:UsersID", (req, res, next) => {
 	const id = req.params.userID;
-	res.status(200).json({ message: "get single user" });
+	res.status(200).json({ message: "get single user", ID: id });
 });
 
 // update a user
@@ -25,7 +25,7 @@ UserRouter.put("/users/:userID", (req, res, next) => {
 });
 
 // delete a user
-UserRouter.put("/users/:userID", (req, res, next) => {
+UserRouter.delete("/users/:userID", (req, res, next) => {
 	const id = req.params.userID;
 	res.status(200).json({ message: "delete user" });
 });
