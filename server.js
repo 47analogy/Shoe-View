@@ -2,12 +2,24 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const server = express()
+const mongoose = require('mongoose')
 
 const port = process.env.Port || 5000
+// TODO: Configure for Production
+const db = process.env.MONGOLAB_URI || 'mongodb://localhost/shoesDB'
+
+// connect to database
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true, useCreateIndex: true }
+  )
+  .then(() => console.log('\n=== connected to mongo ===\n'))
+  .catch(err => console.log('database is not connected'))
 
 // import routes
-const userRoutes = require('./api/routes/users')
-const shoeRoutes = require('./api/routes/shoes')
+const userRoute = require('./api/routes/userRoutes')
+// const shoeRoute = require('./api/routes/shoeRoutes')
 
 server.use(morgan('dev'))
 
@@ -35,8 +47,8 @@ server.get('/', (req, res, next) => {
   res.status(200).json({ api: 'I can hear you Watson' })
 })
 
-server.use('/api', userRoutes)
-server.use('/api', shoeRoutes)
+server.use('/api', userRoute)
+// server.use('/api', shoeController)
 
 // error handlers
 // 404 - not found
