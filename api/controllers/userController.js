@@ -59,7 +59,7 @@ exports.updateUser = (req, res, next) => {
   const userID = req.params.id
   User.findByIdAndUpdate(userID, user)
     .then(updatedUser => {
-      res.status(201).json({ updatedUser: user })
+      res.status(200).json({ updatedUser: user })
     })
     .catch(err => {
       res.status(500).send({
@@ -74,7 +74,7 @@ exports.removeUser = (req, res, next) => {
   const userID = req.params.id
   User.findByIdAndRemove(userID, user)
     .then(removedUser => {
-      res.status(201).send(userID)
+      res.status(200).send(userID)
     })
     .catch(err => {
       res.status(500).send({
