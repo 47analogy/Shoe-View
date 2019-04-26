@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import AddShoe from './components/AddShoe';
+import DisplayShoeList from './components/DisplayShoeList';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
 				{/* Header/Nav */}
-				<AddShoe />
+				<DisplayShoeList />
 			</div>
 		);
 	}
