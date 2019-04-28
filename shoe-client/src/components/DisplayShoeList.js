@@ -11,6 +11,7 @@ class DisplayShoeList extends Component {
 		shoeName: '',
 		designer: '',
 		price: '',
+		image: null,
 		success: false
 	};
 
@@ -45,23 +46,48 @@ class DisplayShoeList extends Component {
 			price: e.target.value
 		});
 	};
+	// select shoe file
+	addShoe = e => {
+		e.preventDefault();
+		this.setState({
+			image: e.target.files[0]
+		});
+	};
+
+	uploadShoe = () => {
+		const imgUpload = this.state.image.name;
+		axios
+			.post(`${URL}/shoes`, imgUpload)
+			.then(res => {
+				console.log(res);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
 
 	handleButtonSubmit = e => {
 		e.preventDefault();
 		// TODO: MESSAGE
-		this.setState({
-			success: true
-		});
+		// this.setState({
+		// 	success: true
+		// });
 		const newShoe = {
 			shoeName: this.state.shoeName,
 			designer: this.state.designer,
-			price: this.state.price
+			price: this.state.price,
+			image: this.state.image.name
 		};
 		console.log('submit', newShoe);
+		// console.log('submit', this.state.image);
 		axios
 			.post(`${URL}/shoes`, newShoe)
 			.then(res => {
 				console.log('res.data', res.data);
+				this.setState(prevState => ({
+					success: true,
+					shoeList: [newShoe, ...prevState.shoeList]
+				}));
 			})
 			.catch(err => {
 				console.log(err);
@@ -76,14 +102,17 @@ class DisplayShoeList extends Component {
 	};
 
 	render() {
-		console.log('log render', this.state.shoeList);
+		console.log('img', this.state.image);
 		return (
 			<div>
 				<AddShoeForm
 					shoeName={this.state.shoeName}
 					designer={this.state.designer}
 					price={this.state.price}
-					sucess={this.state.succes}
+					image={this.state.image}
+					success={this.state.succes}
+					addShoe={this.addShoe}
+					uploadShoe={this.uploadShoe}
 					onChangeShoeName={this.onChangeShoeName}
 					onChangeDesigner={this.onChangeDesigner}
 					onchangePrice={this.onchangePrice}

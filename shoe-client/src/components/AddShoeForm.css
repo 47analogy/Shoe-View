@@ -1,0 +1,11 @@
+.shoe-form {
+	padding: 40px;
+}
+
+button.ui.button {
+	padding: 20px 60px;
+	color: #fff;
+	background-color: #000000;
+	font-size: 18px;
+	margin-top: 10px;
+}
