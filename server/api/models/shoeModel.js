@@ -5,16 +5,19 @@ const ShoeSchema = mongoose.Schema(
 		id: mongoose.Schema.Types.ObjectId,
 		shoeName: {
 			type: String,
-			required: true
+			required: true,
 		},
 		designer: {
 			type: String,
-			required: true
+			required: true,
 		},
-		price: Number
+		price: {
+			type: Number,
+			required: true,
+		},
 	},
 	{
-		timestamps: true
+		timestamps: true,
 	}
 );
 

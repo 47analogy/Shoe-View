@@ -3,11 +3,11 @@ const Shoe = require('../models/shoeModel');
 // TODO: Validation
 
 // create a new shoe
-exports.createShoe = (req, res, next) => {
+module.exports.createShoe = (req, res, next) => {
 	const { shoeName, designer, price } = req.body;
 	if (!shoeName || !designer) {
 		res.status(400).send({
-			errorMessage: 'Both a shoe name and designer are required'
+			errorMessage: 'Both a shoe name and designer are required',
 		});
 	}
 	// create the shoe to save
@@ -20,20 +20,20 @@ exports.createShoe = (req, res, next) => {
 		})
 		.catch(err => {
 			res.status(500).send({
-				error: 'Shoe not saved to database'
+				error: 'Shoe not saved to database',
 			});
 		});
 };
 
 // get all the shoes
-exports.getAllShoes = (req, res, next) => {
+module.exports.getAllShoes = (req, res, next) => {
 	Shoe.find()
 		.then(shoes => {
 			res.status(200).json({ shoes: shoes });
 		})
 		.catch(err => {
 			res.status(500).send({
-				error: 'Error getting all shoes from database'
+				error: 'Error getting all shoes from database',
 			});
 		});
 };
@@ -47,7 +47,7 @@ exports.getOneShoe = (req, res, next) => {
 		})
 		.catch(err => {
 			res.status(500).send({
-				error: 'Error getting this shoe from database'
+				error: 'Error getting this shoe from database',
 			});
 		});
 };
@@ -62,7 +62,7 @@ exports.updateShoe = (req, res, next) => {
 		})
 		.catch(err => {
 			res.status(500).send({
-				error: 'Shoe was not updated'
+				error: 'Shoe was not updated',
 			});
 		});
 };
@@ -77,7 +77,7 @@ exports.removeShoe = (req, res, next) => {
 		})
 		.catch(err => {
 			res.status(500).send({
-				error: 'Shoe was not deleted'
+				error: 'Shoe was not deleted',
 			});
 		});
 };
