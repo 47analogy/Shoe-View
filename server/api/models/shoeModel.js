@@ -15,6 +15,10 @@ const ShoeSchema = mongoose.Schema(
 			type: Number,
 			required: true,
 		},
+		shoeImage: {
+			type: String,
+			required: true
+		}
 	},
 	{
 		timestamps: true,
