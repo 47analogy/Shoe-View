@@ -14,7 +14,7 @@ const AddShoeForm = props => {
 		onchangePrice,
 		addShoe,
 		uploadShoe,
-		handleButtonSubmit
+		handleButtonSubmit,
 	} = props;
 
 	return (
@@ -22,7 +22,7 @@ const AddShoeForm = props => {
 			<Container>
 				{/* <h1>Add a Shoe</h1> */}
 				<div className="add-image">
-					<input type="file" onChange={addShoe} />
+					<input type="file" name="image" onChange={addShoe} />
 					<button onClick={uploadShoe}>Upload</button>
 				</div>
 				<Form success error stackable="true" onSubmit={handleButtonSubmit}>

@@ -12,7 +12,7 @@ class DisplayShoeList extends Component {
 		designer: '',
 		price: '',
 		image: null,
-		success: false
+		success: false,
 	};
 
 	componentDidMount() {
@@ -20,7 +20,7 @@ class DisplayShoeList extends Component {
 			.get(`${URL}/shoes`)
 			.then(res => {
 				this.setState({
-					shoeList: res.data.shoes
+					shoeList: res.data.shoes,
 				});
 			})
 			.catch(err => {
@@ -28,42 +28,30 @@ class DisplayShoeList extends Component {
 			});
 	}
 
-	//combine all 3 handlers
+	// combine all 3 handlers
 	onChangeShoeName = e => {
 		this.setState({
-			shoeName: e.target.value
+			shoeName: e.target.value,
 		});
 	};
 
 	onChangeDesigner = e => {
 		this.setState({
-			designer: e.target.value
+			designer: e.target.value,
 		});
 	};
 
 	onchangePrice = e => {
 		this.setState({
-			price: e.target.value
-		});
-	};
-	// select shoe file
-	addShoe = e => {
-		e.preventDefault();
-		this.setState({
-			image: e.target.files[0]
+			price: e.target.value,
 		});
 	};
 
-	uploadShoe = () => {
-		const imgUpload = this.state.image.name;
-		axios
-			.post(`${URL}/shoes`, imgUpload)
-			.then(res => {
-				console.log(res);
-			})
-			.catch(err => {
-				console.log(err);
-			});
+	addShoe = e => {
+		e.preventDefault();
+		this.setState({
+			image: e.target.files[0],
+		});
 	};
 
 	handleButtonSubmit = e => {
@@ -72,37 +60,62 @@ class DisplayShoeList extends Component {
 		// this.setState({
 		// 	success: true
 		// });
-		const newShoe = {
+
+		let newShoe = new FormData();
+
+		let shoeData = {
 			shoeName: this.state.shoeName,
 			designer: this.state.designer,
 			price: this.state.price,
-			image: this.state.image.name
+			image: this.state.image,
 		};
-		console.log('submit', newShoe);
-		// console.log('submit', this.state.image);
+
+		console.log('shoe-data', shoeData);
+
+		newShoe.append('shoeName', this.state.shoeName);
+		newShoe.append('designer', this.state.designer);
+		newShoe.append('price', this.state.price);
+		newShoe.append('image', this.state.image);
+
+		for (let value of newShoe.values()) {
+			console.log('value: ', value); //  --> shows file info
+		}
+
+		const config = {
+			headers: {
+				// 'Content-Type': 'multipart/form-data',
+				'Content-Type': 'application/json',
+				enctype: 'multipart/form-data',
+			},
+		};
+
+		console.log('ns', newShoe);
+		//console.log("config", config)
+		console.log('WTFFFF', this.state.image);
 		axios
-			.post(`${URL}/shoes`, newShoe)
+			.post(`${URL}/shoes`, newShoe, config)
 			.then(res => {
-				console.log('res.data', res.data);
+				console.log('resdata', res.data);
 				this.setState(prevState => ({
 					success: true,
-					shoeList: [newShoe, ...prevState.shoeList]
+					shoeList: [newShoe, ...prevState.shoeList],
 				}));
+				console.log('sucess');
 			})
 			.catch(err => {
-				console.log(err);
+				console.log('error with posting', err);
 			});
 
 		this.setState({
 			shoeName: '',
 			designer: '',
 			price: '',
-			success: false
+			image: null,
+			success: false,
 		});
 	};
 
 	render() {
-		console.log('img', this.state.image);
 		return (
 			<div>
 				<AddShoeForm
