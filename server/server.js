@@ -11,12 +11,11 @@ const db = process.env.MONGOLAB_URI || 'mongodb://localhost/shoesDB';
 
 // connect to database
 mongoose
-	.connect(db, { useNewUrlParser: true, useCreateIndex: true })
-	.then(() => console.log('\n=== connected to mongo ===\n'))
-	.catch(err => console.log('database is not connected'));
+  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
+  .then(() => console.log('\n=== connected to mongo ===\n'))
+  .catch(err => console.log('database is not connected'));
 
 // import routes
-const userRoute = require('./api/routes/userRoutes');
 const shoeRoute = require('./api/routes/shoeRoutes');
 
 server.use(morgan('dev'));
@@ -30,31 +29,30 @@ server.use(cors());
 
 // test route
 server.get('/', (req, res, next) => {
-	res.status(200).json({ api: 'I can hear you Watson' });
+  res.status(200).json({ api: 'I can hear you Watson' });
 });
 
-server.use('/api', userRoute);
 server.use('/api', shoeRoute);
 
 // error handlers
 // 404 - not found
 server.use((req, res, next) => {
-	const error = new Error('Not Found');
-	error.status = 404;
-	next(error);
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
 });
 
 // general error handle to return any errors found
 server.use((error, req, res, next) => {
-	{
-		res.status(error.status || 500);
-		res.json({
-			error: { message: error.message },
-		});
-	}
+  {
+    res.status(error.status || 500);
+    res.json({
+      error: { message: error.message },
+    });
+  }
 });
 
 // listen on port
 server.listen(port, () => {
-	console.log(`Server is listening on port ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });

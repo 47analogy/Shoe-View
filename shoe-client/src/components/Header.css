@@ -1,29 +1,29 @@
 .page-header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	background-color: #36454f;
-	padding: 20px 10px;
-	width: 100%;
-	height: 150px;
-	font-size: 40px;
-	font-weight: 900;
-	color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #36454f;
+  padding: 20px 10px;
+  width: 100%;
+  height: 150px;
+  font-size: 40px;
+  font-weight: 900;
+  color: white;
 }
 
 .page-header a:hover {
-	background-color: #ddd;
-	color: black;
+  background-color: #ddd;
+  color: black;
 }
 
 @media screen and (max-width: 500px) {
-	.page-header a {
-		float: none;
-		display: block;
-		text-align: left;
-	}
-	.header-right {
-		float: none;
-	}
+  .page-header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
 }

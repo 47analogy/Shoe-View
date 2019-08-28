@@ -4,14 +4,14 @@ import Header from './components/Header';
 import DisplayShoeList from './components/DisplayShoeList';
 
 class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<Header />
-				<DisplayShoeList />
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className='App'>
+        <Header />
+        <DisplayShoeList />
+      </div>
+    );
+  }
 }
 
 export default App;
