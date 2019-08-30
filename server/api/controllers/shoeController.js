@@ -35,7 +35,7 @@ exports.createShoe = (req, res, next) => {
       shoeName: req.body.shoeName,
       designer: req.body.designer,
       price: req.body.price,
-      image: Date.now() + path.extname(req.file.originalname),
+      image: req.file.url,
       //   path.extname(req.file.originalname).toString()
     });
     if (!shoe) {
