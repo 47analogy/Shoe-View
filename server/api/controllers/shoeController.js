@@ -1,6 +1,5 @@
 const Shoe = require('../models/shoeModel');
 const multer = require('multer');
-const path = require('path');
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 
@@ -36,27 +35,22 @@ exports.createShoe = (req, res, next) => {
       designer: req.body.designer,
       price: req.body.price,
       image: req.file.url,
-      //   path.extname(req.file.originalname).toString()
     });
     if (!shoe) {
       res.status(400).send({
         errorMessage: 'All fields are required',
       });
     }
-    console.log('Request file URL ---', req.file.url);
-    console.log('Request file ID ---', req.file.public_id);
 
-    // save shoe to database
     shoe
       .save()
       .then(savedShoe => {
-        console.log('DataBase', savedShoe);
         res.status(201).json({ savedShoe: savedShoe });
       })
       .catch(err => {
-        //res.status(500).send({
-        //err: 'Shoe not saved to database'
-        console.log(err);
+        res.status(500).send({
+          err: 'Shoe not saved to database',
+        });
       });
   });
 };
@@ -65,7 +59,6 @@ exports.createShoe = (req, res, next) => {
 exports.getAllShoes = (req, res, next) => {
   Shoe.find()
     .then(shoes => {
-      //console.log(shoes)
       res.status(200).json({ shoes: shoes });
     })
     .catch(err => {
@@ -75,7 +68,7 @@ exports.getAllShoes = (req, res, next) => {
     });
 };
 
-// get single shoe  by id
+// get single shoe by id
 exports.getOneShoe = (req, res, next) => {
   const shoeID = req.params.id;
   Shoe.findById(shoeID)

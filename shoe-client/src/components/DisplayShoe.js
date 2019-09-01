@@ -1,12 +1,11 @@
 import React from 'react';
 import './DisplayShoe.css';
-import { Container, Grid, Card, Button } from 'semantic-ui-react';
+import { Container, Grid, Card } from 'semantic-ui-react';
 
 const DisplayShoe = props => {
   console.log('props', props);
   return (
     <div className='display-shoe'>
-      {/* <h5>Shoe Title</h5> */}
       <Container centered='true'>
         <Grid width={16}>
           {props.allShoes.map(shoe => {

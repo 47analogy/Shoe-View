@@ -16,7 +16,6 @@ mongoose
   .catch(err => console.log('database is not connected'));
 
 // import routes
-const userRoute = require('./api/routes/userRoutes');
 const shoeRoute = require('./api/routes/shoeRoutes');
 
 server.use(morgan('dev'));
@@ -33,18 +32,16 @@ server.get('/', (req, res, next) => {
   res.status(200).json({ api: 'I can hear you Watson' });
 });
 
-server.use('/api', userRoute);
 server.use('/api', shoeRoute);
 
-// error handlers
-// 404 - not found
+// 404 error handler
 server.use((req, res, next) => {
   const error = new Error('Not Found');
   error.status = 404;
   next(error);
 });
 
-// general error handle to return any errors found
+// general error handler to return any errors found
 server.use((error, req, res, next) => {
   {
     res.status(error.status || 500);
