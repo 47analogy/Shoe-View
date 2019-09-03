@@ -28,6 +28,8 @@ server.use(bodyParser.json());
 // enable CORS
 server.use(cors());
 
+server.use(express.static(path.join(__dirname, './shoe-client/build')));
+
 // test route
 server.get('/', (req, res, next) => {
   res.status(200).json({ api: 'I can hear you Watson' });
@@ -54,15 +56,13 @@ server.use((error, req, res, next) => {
 
 // serve up for production deploy
 
-server.use(express.static(path.join(__dirname, './shoe-client/build')));
-
 server.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/shoe-client/build/index.html'));
   // res.sendFile(path.join(`${__dirname  }/hairspray-app/build/index.html`));
 });
 
 server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'shoe-client', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
 // listen on port
