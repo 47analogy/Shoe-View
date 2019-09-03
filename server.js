@@ -54,6 +54,8 @@ server.use((error, req, res, next) => {
 
 // serve up for production deploy
 
+app.use(express.static(path.join(__dirname, './shoe-client/build')));
+
 server.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/shoe-client/build/index.html'));
   // res.sendFile(path.join(`${__dirname  }/hairspray-app/build/index.html`));
