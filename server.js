@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const server = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -19,7 +19,7 @@ mongoose
 // import routes
 const shoeRoute = require('./api/routes/shoeRoutes');
 
-server.use(morgan('dev'));
+// server.use(morgan('dev'));
 
 // parse requests
 server.use(bodyParser.urlencoded({ extended: false }));
