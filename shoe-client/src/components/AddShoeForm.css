@@ -1,11 +1,27 @@
 .shoe-form {
-	padding: 40px;
+  padding: 40px;
+  margin-bottom: 70px;
+}
+
+.add-image {
+  margin-bottom: 60px;
+}
+
+form.ui.form .field label {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 button.ui.button {
-	padding: 20px 60px;
-	color: #fff;
-	background-color: #000000;
-	font-size: 18px;
-	margin-top: 10px;
+  margin-top: 10px;
+  padding: 20px 45px;
+  color: #fff;
+  background-color: #36454f;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 15px;
+  font-weight: 900;
 }

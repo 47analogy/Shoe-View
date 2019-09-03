@@ -12,7 +12,6 @@ const AddShoeForm = props => {
     onChangeDesigner,
     onchangePrice,
     addShoe,
-    uploadShoe,
     handleButtonSubmit,
   } = props;
 

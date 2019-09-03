@@ -3,7 +3,6 @@ import './DisplayShoe.css';
 import { Container, Grid, Card } from 'semantic-ui-react';
 
 const DisplayShoe = props => {
-  console.log('props', props);
   return (
     <div className='display-shoe'>
       <Container centered='true'>
@@ -14,7 +13,7 @@ const DisplayShoe = props => {
                 <Grid.Column>
                   <Card
                     style={{
-                      marginBottom: '30px',
+                      marginBottom: '50px',
                       justifyContent: 'spaceBetween',
                     }}
                     image={shoe.image}
