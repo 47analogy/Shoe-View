@@ -4,12 +4,11 @@
   "description": "describe api",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "start": "npm install && node server.js",
     "heroku-postbuild": "cd shoe-client && npm install --only=dev && npm install && npm run build"
   },
-  "proxy": "http://localhost:5000",
   "author": "Anthony Tweed",
   "license": "ISC",
   "dependencies": {
@@ -23,7 +22,6 @@
     "multer-storage-cloudinary": "^2.2.1"
   },
   "devDependencies": {
-    "morgan": "^1.9.1",
     "nodemon": "^1.18.9"
   },
   "engines": {
