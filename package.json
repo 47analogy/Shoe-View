@@ -9,6 +9,7 @@
     "start": "npm install && node server.js",
     "heroku-postbuild": "cd shoe-client && yarn install && yarn run build"
   },
+  "proxy": "http://localhost:5000",
   "author": "Anthony Tweed",
   "license": "ISC",
   "dependencies": {

@@ -8,7 +8,7 @@ const path = require('path');
 
 const port = process.env.Port || 5000;
 // TODO: Configure for Production
-const db = process.env.MONGOLAB_URI || 'mongodb://localhost/shoesDB';
+const db = process.env.MONGODB_URI || 'mongodb://localhost/shoesDB';
 
 // connect to database
 mongoose
@@ -53,11 +53,14 @@ server.use((error, req, res, next) => {
 });
 
 // serve up for production deploy
-server.use(express.static(path.join(__dirname, '../shoe-client/build')));
 
-// react root
 server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../shoe-client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/shoe-client/build/index.html'));
+  // res.sendFile(path.join(`${__dirname  }/hairspray-app/build/index.html`));
+});
+
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
 // listen on port
