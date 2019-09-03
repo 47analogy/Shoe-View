@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
-const port = process.env.Port || 5000;
+const port = process.env.PORT || 5000;
 // TODO: Configure for Production
 const db = process.env.MONGODB_URI || 'mongodb://localhost/shoesDB';
 
