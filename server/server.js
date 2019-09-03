@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const server = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const port = process.env.Port || 5000;
 // TODO: Configure for Production
@@ -49,6 +50,14 @@ server.use((error, req, res, next) => {
       error: { message: error.message },
     });
   }
+});
+
+// serve up for production deploy
+server.use(express.static(path.join(__dirname, '../shoe-client/build')));
+
+// react root
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '../shoe-client/build/index.html'));
 });
 
 // listen on port
