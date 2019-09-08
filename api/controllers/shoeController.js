@@ -25,17 +25,17 @@ const upload = multer({ storage: storage }).single('image');
 // TODO: Validation
 exports.createShoe = (req, res, next) => {
   upload(req, res, err => {
-    if (!req.file) {
-      res.status(400).send({
-        errorMessage: 'Error with uploading image',
-      });
-    }
-
+    // if (!req.file) {
+    //   res.status(400).send({
+    //     errorMessage: 'Error with uploading image',
+    //   });
+    // }
+    console.log('req.file', req.file);
     const shoe = new Shoe({
       shoeName: req.body.shoeName,
       designer: req.body.designer,
       price: req.body.price,
-      image: req.cloudinary.url,
+      image: req.file.url,
     });
     if (!shoe) {
       res.status(400).send({
