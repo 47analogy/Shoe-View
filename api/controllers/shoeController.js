@@ -26,7 +26,7 @@ exports.createShoe = (req, res, next) => {
   upload(req, res, err => {
     if (!req.file) {
       res.status(400).send({
-        errorMessage: 'Error uploading image',
+        errorMessage: 'Error with uploading image',
       });
     }
 
