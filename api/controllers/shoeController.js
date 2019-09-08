@@ -30,7 +30,6 @@ exports.createShoe = (req, res, next) => {
     //     errorMessage: 'Error with uploading image',
     //   });
     // }
-    console.log('req.file', req.file);
     const shoe = new Shoe({
       shoeName: req.body.shoeName,
       designer: req.body.designer,
