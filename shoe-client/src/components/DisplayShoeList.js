@@ -3,7 +3,7 @@ import AddShoeForm from './AddShoeForm';
 import DisplayShoe from './DisplayShoe';
 import axios from 'axios';
 
-const URL = 'http://localhost:5000' || 'https://shoe-view.herokuapp.com/';
+const URL = 'https://shoe-view.herokuapp.com' || 'http://localhost:5000';
 
 class DisplayShoeList extends Component {
   state = {
@@ -16,16 +16,6 @@ class DisplayShoeList extends Component {
   };
 
   componentDidMount() {
-    // axios
-    //   .get(`${URL}/api/shoes`)
-    //   .then(res => {
-    //     this.setState({
-    //       shoeList: res.data.shoes,
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
     this.displayAllShoes();
   }
 
@@ -91,8 +81,6 @@ class DisplayShoeList extends Component {
     axios
       .post(`${URL}/api/shoes`, newShoe, config)
       .then(res => {
-        console.log('res', res);
-        console.log('res', res.data);
         this.setState(
           prevState => ({
             success: true,
