@@ -60,10 +60,6 @@ class DisplayShoeList extends Component {
 
   handleButtonSubmit = e => {
     e.preventDefault();
-    // TODO: MESSAGE
-    // this.setState({
-    // 	success: true
-    // });
 
     let newShoe = new FormData();
 
