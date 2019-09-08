@@ -35,7 +35,7 @@ exports.createShoe = (req, res, next) => {
       shoeName: req.body.shoeName,
       designer: req.body.designer,
       price: req.body.price,
-      image: req.file.url,
+      image: cloudinary.url,
     });
     if (!shoe) {
       res.status(400).send({
