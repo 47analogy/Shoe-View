@@ -1,7 +1,7 @@
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Shoe = require('../models/shoeModel');
 const multer = require('multer');
-const cloudinary = require('cloudinary');
-const cloudinaryStorage = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
 
 // TODO: create config module
 const dotenv = require('dotenv');
@@ -14,7 +14,7 @@ cloudinary.config({
   url: process.env.CLOUDINARY_URL, // deployment
 });
 
-const storage = cloudinaryStorage({
+const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   folder: 'shoes',
   transformation: [{ width: 500, height: 500, crop: 'limit' }],
@@ -24,7 +24,7 @@ const upload = multer({ storage: storage }).single('image');
 
 // TODO: Validation
 exports.createShoe = (req, res, next) => {
-  upload(req, res, err => {
+  upload(req, res, (err) => {
     // if (!req.file) {
     //   res.status(400).send({
     //     errorMessage: 'Error with uploading image',
@@ -44,10 +44,10 @@ exports.createShoe = (req, res, next) => {
 
     shoe
       .save()
-      .then(savedShoe => {
+      .then((savedShoe) => {
         res.status(201).json({ savedShoe: savedShoe });
       })
-      .catch(err => {
+      .catch((err) => {
         res.status(500).send({
           err: 'Shoe not saved to database',
         });
@@ -58,10 +58,10 @@ exports.createShoe = (req, res, next) => {
 // get all the shoes
 exports.getAllShoes = (req, res, next) => {
   Shoe.find()
-    .then(shoes => {
+    .then((shoes) => {
       res.status(200).json({ shoes: shoes });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         error: 'Error getting all shoes from database',
       });
@@ -72,10 +72,10 @@ exports.getAllShoes = (req, res, next) => {
 exports.getOneShoe = (req, res, next) => {
   const shoeID = req.params.id;
   Shoe.findById(shoeID)
-    .then(shoe => {
+    .then((shoe) => {
       res.status(200).json({ shoe: shoe });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         error: 'Error getting this shoe from database',
       });
@@ -87,10 +87,10 @@ exports.updateShoe = (req, res, next) => {
   const shoe = req.body;
   const shoeID = req.params.id;
   Shoe.findByIdAndUpdate(shoeID, shoe)
-    .then(updatedShoe => {
+    .then((updatedShoe) => {
       res.status(200).json({ updatedShoe: shoe });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         error: 'Shoe was not updated',
       });
@@ -102,10 +102,10 @@ exports.removeShoe = (req, res, next) => {
   const shoe = req.body;
   const shoeID = req.params.id;
   Shoe.findByIdAndRemove(shoeID, shoe)
-    .then(removedShoe => {
+    .then((removedShoe) => {
       res.status(200).send(shoeID);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         error: 'Shoe was not deleted',
       });
