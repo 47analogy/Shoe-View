@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 // const morgan = require('morgan');
-const server = express();
+const cookieParser = require('cookie-parser');
+const compress = require('compression');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const server = express();
 
 const port = process.env.PORT || 5000;
 // TODO: Configure for Production
@@ -14,18 +17,19 @@ const db = process.env.MONGODB_URI || 'mongodb://localhost/shoesDB';
 mongoose
   .connect(db, { useNewUrlParser: true, useCreateIndex: true })
   .then(() => console.log('\n=== connected to mongo ===\n'))
-  .catch(err => console.log('database is not connected'));
+  .catch((err) => console.log('database is not connected'));
 
 // import routes
 const shoeRoute = require('./api/routes/shoeRoutes');
 
 // server.use(morgan('dev'));
 
-// parse requests
+// middleware
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-
-// enable CORS
+server.use(cookieParser());
+server.use(compress());
+server.use(helmet());
 server.use(cors());
 
 server.use(express.static(path.join(__dirname, './shoe-client/build')));
@@ -69,3 +73,5 @@ server.get('*', (req, res) => {
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+module.exports = server;
