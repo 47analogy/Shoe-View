@@ -44,7 +44,8 @@ server.use(
         'data:',
         'https://res.cloudinary.com/htac35ipy/image',
       ],
-      'font-src': ["'self'", 'data:', 'application/*'],
+      'font-src': ["'self'", 'https:', 'data'],
+      'style-src': ["'self'", 'https:', 'unsafe-inline'],
     },
   })
 );
