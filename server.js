@@ -29,11 +29,29 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compress());
-server.use(helmet());
+// server.use(
+//   helmet({
+//     contentSecurityPolicy: false,
+//   })
+// );
+
+server.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      'default-src': ["'self'"],
+      'img-src': [
+        "'self'",
+        'data:',
+        'https://res.cloudinary.com/htac35ipy/image',
+      ],
+      'font-src': ["'self'", 'data:', 'application/*'],
+    },
+  })
+);
+
 server.use(cors());
 
 server.use(express.static(path.join(__dirname, './shoe-client/build')));
-
 // test route
 server.get('/', (req, res, next) => {
   res.status(200).json({ api: 'I can hear you Watson' });
