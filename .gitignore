@@ -11,7 +11,7 @@
 /data
 
 # misc
-
+/config
 .env
 .env.local
 .env.development.local

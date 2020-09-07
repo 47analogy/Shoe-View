@@ -8,8 +8,6 @@ exports.createUser = (req, res, next) => {
     password: req.body.password,
   });
 
-  console.log(user);
-
   user
     .save()
     .then((savedUser) => {
@@ -30,7 +28,7 @@ exports.getAllUsers = (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).send({
-        error: 'Error getting all users',
+        err: 'Error getting all users',
       });
     });
 };
@@ -44,7 +42,7 @@ exports.getOneUser = (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).send({
-        error: 'Error getting user',
+        err: 'Error getting user',
       });
     });
 };
@@ -56,11 +54,11 @@ exports.updateUser = (req, res, next) => {
   user.updated = Date.now();
   User.findByIdAndUpdate(userID, user)
     .then((updatedUser) => {
-      res.status(200).json({ updatedUser: user });
+      res.status(200).json({ updatedUser });
     })
     .catch((err) => {
       res.status(500).send({
-        error: 'User was not updated',
+        err: 'User was not updated',
       });
     });
 };
@@ -71,7 +69,7 @@ exports.removeUser = (req, res, next) => {
   const userID = req.params.id;
   User.findByIdAndRemove(userID, user)
     .then((removedUser) => {
-      res.status(200).send(userID);
+      res.status(200).send(removedUser);
     })
     .catch((err) => {
       res.status(500).send({
