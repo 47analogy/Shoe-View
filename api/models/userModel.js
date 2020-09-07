@@ -27,7 +27,7 @@ const UserSchema = mongoose.Schema({
 });
 
 // TODO: add validation
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function (next) {
   const user = this;
   if (this.isModified('password') || this.isNew) {
     bcrypt.genSalt(10, function (err, salt) {

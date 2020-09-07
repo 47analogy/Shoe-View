@@ -21,6 +21,7 @@ mongoose
 
 // import routes
 const shoeRoute = require('./api/routes/shoeRoutes');
+const userRoute = require('./api/routes/userRoutes');
 
 // server.use(morgan('dev'));
 
@@ -54,7 +55,7 @@ server.get('/', (req, res, next) => {
   res.status(200).json({ api: 'I can hear you Watson' });
 });
 
-server.use('/api', shoeRoute);
+server.use('/api', shoeRoute, userRoute);
 
 // 404 error handler
 server.use((req, res, next) => {

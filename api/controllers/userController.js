@@ -8,10 +8,12 @@ exports.createUser = (req, res, next) => {
     password: req.body.password,
   });
 
+  console.log(user);
+
   user
     .save()
     .then((savedUser) => {
-      res.status(201).json({ savedUser: savedUser });
+      res.status(201).json({ savedUser });
     })
     .catch((err) => {
       res.status(500).send({
@@ -24,7 +26,7 @@ exports.createUser = (req, res, next) => {
 exports.getAllUsers = (req, res, next) => {
   User.find()
     .then((users) => {
-      res.status(200).json({ users: users });
+      res.status(200).json({ users });
     })
     .catch((err) => {
       res.status(500).send({
@@ -34,11 +36,11 @@ exports.getAllUsers = (req, res, next) => {
 };
 
 // get a user by id
-exports.getUser = (req, res, next) => {
+exports.getOneUser = (req, res, next) => {
   const userID = req.params.id;
   User.findById(userID)
     .then((user) => {
-      res.status(200).json({ user: user });
+      res.status(200).json({ user });
     })
     .catch((err) => {
       res.status(500).send({
