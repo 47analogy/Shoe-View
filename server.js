@@ -31,11 +31,6 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compress());
-// server.use(
-//   helmet({
-//     contentSecurityPolicy: false,
-//   })
-// );
 
 server.use(
   helmet.contentSecurityPolicy({
@@ -76,7 +71,6 @@ server.use((error, req, res, next) => {
 });
 
 // serve up for production deploy
-
 server.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/shoe-client/build/index.html'));
   // res.sendFile(path.join(`${__dirname  }/hairspray-app/build/index.html`));
