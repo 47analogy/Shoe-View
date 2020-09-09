@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
+import Login from './components/Login';
 import DisplayShoeList from './components/DisplayShoeList';
+//import DisplayShoe from './components/DisplayShoe';
 
-class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<Header />
-				<DisplayShoeList />
-			</div>
-		);
-	}
-}
+const App = () => {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Switch>
+          <Header />
+          <Route path="/" exact component={DisplayShoeList} />
+          <Route path="/login" component={Login} />
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;

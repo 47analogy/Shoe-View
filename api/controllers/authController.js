@@ -26,44 +26,48 @@ exports.registerUser = (req, res, next) => {
 exports.signIn = (req, res, next) => {
   const userName = req.body.userName;
 
-  User.findOne({ userName }).exec((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
+  User.findOne({ userName })
+    .exec()
+    .then((user) => {
+      if (!user) {
+        return res.status(401).send({ message: 'Invalid Credentials!' });
+      }
 
-    if (!user) {
-      return res.status(404).send({ message: 'Invalid Credentials!' });
-    }
+      const passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
 
-    const passwordIsValid = bcrypt.compareSync(
-      req.body.password,
-      user.password
-    );
+      if (!passwordIsValid) {
+        return res.status(401).send({
+          accessToken: null,
+          message: 'Invalid Credentials!',
+        });
+      }
 
-    if (!passwordIsValid) {
-      return res.status(401).send({
-        accessToken: null,
-        message: 'Invalid Credentials!',
+      const token = jwt.sign(
+        { userName: user.userName, userId: user._id },
+        authConfig.secret,
+        {
+          expiresIn: '1hr',
+        }
+      );
+
+      // const authenticatedUser = {
+      //   id: user.id,
+      //   userName: user.userName,
+      //   email: user.email,
+      //   accessToken: token,
+      // };
+
+      res.status(200).json({
+        id: user._id,
+        userName: user.userName,
+        email: user.email,
+        accessToken: token,
       });
-    }
-
-    const token = jwt.sign({ user }, authConfig.secret, {
-      expiresIn: '1hr',
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err });
     });
-
-    // const authenticatedUser = {
-    //   id: user.id,
-    //   userName: user.userName,
-    //   email: user.email,
-    //   accessToken: token,
-    // };
-
-    res.status(200).send({
-      id: user.id,
-      userName: user.userName,
-      email: user.email,
-      accessToken: token,
-    });
-  });
 };
