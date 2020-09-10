@@ -8,13 +8,29 @@ import {
   Container,
 } from 'semantic-ui-react';
 
-const Login = () => {
+import axios from 'axios';
+
+const URL = 'http://localhost:5000' || 'https://shoe-view.herokuapp.com';
+
+const Login = (props) => {
   const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onChange = (e) => {
-    setUserName(e.target.value);
-    setPassword(e.target.value);
+  // TODO: user message - failed login
+  const submitLogin = (e) => {
+    console.log(userName, email, password);
+    e.preventDefault();
+    axios
+      .post(`${URL}/api/signin`, {
+        userName: userName,
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        props.history.push('/');
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -24,13 +40,20 @@ const Login = () => {
         <Grid.Column>
           <Header as="h2" textAlign="center"></Header>
           <Segment>
-            <Form size="large">
+            <Form size="large" onSubmit={submitLogin}>
               <Form.Input
                 fluid
                 icon="user"
                 iconPosition="left"
                 placeholder="User Name"
-                onChange={(e) => onChange(e)}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Form.Input
                 fluid
@@ -38,10 +61,10 @@ const Login = () => {
                 iconPosition="left"
                 placeholder="Password"
                 type="password"
-                onChange={(e) => onChange(e)}
+                onChange={(e) => setPassword(e.target.value)}
               />
 
-              <Button color="blue" fluid size="large">
+              <Button color="blue" fluid size="large" type="submit">
                 Sign In
               </Button>
             </Form>
