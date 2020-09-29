@@ -1,41 +1,18 @@
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Shoe = require('../models/shoeModel');
-const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
+const multer = require('./../../middleware/multer');
 
-// TODO: create config module
-const dotenv = require('dotenv');
-dotenv.config();
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  url: process.env.CLOUDINARY_URL, // deployment
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  folder: 'shoes',
-  transformation: [{ width: 500, height: 500, crop: 'limit' }],
-});
-
-const upload = multer({ storage: storage }).single('image');
+const uploadImage = multer;
 
 // TODO: Validation
 exports.createShoe = (req, res, next) => {
-  upload(req, res, (err) => {
-    // if (!req.file) {
-    //   res.status(400).send({
-    //     errorMessage: 'Error with uploading image',
-    //   });
-    // }
+  uploadImage(req, res, (err) => {
     const shoe = new Shoe({
       shoeName: req.body.shoeName,
       designer: req.body.designer,
       price: req.body.price,
-      image: req.file.url,
+      image: req.file.path,
     });
+    console.log('SHOE IMAGE-->', req.file);
     if (!shoe) {
       res.status(400).send({
         errorMessage: 'All fields are required',
